@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
 import Menu from './components/Menu';
+
 import Login from './pages/Login';
 import Home from './pages/Home';
 
 import { isWeb } from './helpers';
+let token = false;
+if(!isWeb){  
+  token = AsyncStorage.getItem('token');
+}else{
+  token = localStorage.getItem('token');
+}
 
 let Router;
 if (isWeb) {
@@ -33,6 +40,16 @@ if (isWeb) {
 }
 
 class App extends Component {
+  componentWillMount() {
+    
+  }
+  componentDidMount(){
+    if(!token){
+
+    }else{
+     // this.props.history.push('/admin');
+    }
+  }
   render() {
     return (
       <Router>
@@ -43,7 +60,8 @@ class App extends Component {
             <Route path="/admin" component={Home} />
             <Redirect to="/" />
           </Switch>
-          <Menu />
+          {token ? <Menu /> : <Login/>}
+          
         </View>
       </Router>
     );

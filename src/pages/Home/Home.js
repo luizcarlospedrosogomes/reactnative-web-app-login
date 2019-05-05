@@ -28,17 +28,11 @@ class Home extends Component {
   }
 
   render() {
-    const spin = this.state.spinValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '360deg']
-    });
 
     return (
       <View style={styles.container}>
-        <Animated.Image source={logo} style={[styles.logo, { transform: [{rotate: spin}] }]}/>
-        <Text style={styles.title}>Create React Native Web App</Text>
-        <Text>Open up src/App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
+        <Animated.Image source={logo} style={[styles.logo]}/>
+        <Text>AREA ADMINISTRATIVA</Text>
         {Platform.OS !== 'web' && <Text>Shake your phone to open the developer menu.</Text>}
         <Button onClick={this.onClick}>Rotate Logo</Button>
       </View>

@@ -145,10 +145,7 @@ module.exports = {
             include: [
               paths.appSrc,
               path.resolve('node_modules/react-native-swipe-gestures/'),
-              path.resolve('node_modules/@react-native-community/async-storage/lib/'),
-              path.resolve('node_modules/sync-storage/'),
-              
-              
+                            
             ],
             loader: require.resolve('babel-loader'),
             options: {

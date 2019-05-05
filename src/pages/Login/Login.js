@@ -5,11 +5,10 @@ import {
   TextInput,
   ScrollView,
   View,
- // AsyncStorage,
+  AsyncStorage,
 } from 'react-native';
 import Button from '../../components/Button';
 import { isWeb, isDesktop } from '../../helpers';
-import SyncStorage from 'sync-storage';
 
 const extractValueFromEvent = (event) => event.target ? event.target.value : event;
 const extractKeyFromEvent = (event) => event.nativeEvent ? event.nativeEvent.key : event.key;
@@ -49,8 +48,7 @@ class Login extends Component {
           if(isWeb){
             localStorage.setItem('token',dados.token);
           }else{
-         //   AsyncStorage.setItem('@token', dados.token)
-         SyncStorage.set('foo', 'bar');
+           AsyncStorage.setItem('token', dados.token)
           }
             this.props.history.push('/admin');
       }
