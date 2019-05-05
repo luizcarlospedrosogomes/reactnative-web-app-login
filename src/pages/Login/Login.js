@@ -33,7 +33,7 @@ class Login extends Component {
       body:JSON.stringify({email: username, senha: passwd}),
       headers:new Headers({'content-type' : 'application/json'})
   };
-  console.log(username, passwd);
+  
   fetch('http://192.168.0.141/api/login/parks',requestInfo)            
       .then(response =>{
       

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import { shadow, isAndroid } from '../../helpers';
+import { shadow, isAndroid,token } from '../../helpers';
 import Link from '../Link';
 
 const gestureConfig = {
@@ -24,8 +24,14 @@ class Menu extends Component {
   state = {
     isMenuOpen: false,
     menuOffset: new Animated.Value(closedMenuMargin),
+    logged: false,
   }
+  componentWillMount() {
+    token()
+    .then(res => {this.setState({ logged: res})      
+    }).catch(err => alert("Erro"));
 
+  }
   toggleMenu = () => {
     this.setState(state => {
       const isOpen = state.menuOffset._value === 0;
@@ -61,9 +67,12 @@ class Menu extends Component {
               <Text style={styles.buttonText}><Icon name="menu" size={30} color="#333333" /></Text>
             </TouchableHighlight>
             <View style={styles.links}>
-              <Link className="nav-link" onClick={this.toggleMenu} to="/" style={styles.link}>Home</Link>
-              <Link className="nav-link" onClick={this.toggleMenu} to="/about" style={styles.link}>About</Link>
-              <Link className="nav-link" onClick={this.toggleMenu} to="/contact" style={styles.link}>Contact</Link>
+              <Link className="nav-link" onClick={this.toggleMenu} to="/" style={styles.link}>Inicio</Link>
+              {this.state.logged ?
+                <Link className="nav-link" onClick={this.toggleMenu} to="/sair" style={styles.link}>Sair</Link>
+                :
+                <Link className="nav-link" onClick={this.toggleMenu} to="/login" style={styles.link}>Acessar</Link>
+              }
             </View>
           </View>
         </GestureRecognizer>

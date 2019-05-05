@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
+import { StyleSheet, View , Text} from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
 import Menu from './components/Menu';
 
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Home from './pages/Home';
 
-import { isWeb } from './helpers';
-let token = false;
-if(!isWeb){  
-  token = AsyncStorage.getItem('token');
-}else{
-  token = localStorage.getItem('token');
-}
+import { isWeb, token} from './helpers';
 
 let Router;
 if (isWeb) {
@@ -39,28 +34,34 @@ if (isWeb) {
   document.head.appendChild(style);
 }
 
-class App extends Component {
-  componentWillMount() {
-    
-  }
-  componentDidMount(){
-    if(!token){
 
-    }else{
-     // this.props.history.push('/admin');
-    }
+class App extends Component {
+  state = {
+    logged: false
   }
+
+  componentWillMount() {
+    token()
+    .then(res => { this.setState({ logged: res})      
+    }).catch(err => alert("Erro"));
+
+  }
+  
   render() {
     return (
       <Router>
         <View style={styles.container}>
+        {this.state.logged ?
           <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/Login" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
             <Route path="/admin" component={Home} />
+            <Route path="/sair" component={Logout} />
             <Redirect to="/" />
           </Switch>
-          {token ? <Menu /> : <Login/>}
+          :<Login/>
+        }
+          {this.state.logged ? <Menu /> : <Text></Text>}
           
         </View>
       </Router>

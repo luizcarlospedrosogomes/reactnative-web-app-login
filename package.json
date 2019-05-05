@@ -97,7 +97,12 @@
         "plugins": [
           [
             "react-native-web"
-          ]
+            
+          ],
+          ["transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+          }]
         ]
       },
       "production-web": {

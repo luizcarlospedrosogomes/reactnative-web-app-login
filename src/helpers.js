@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 
 export const isWeb = Platform.OS === 'web';
 export const isNative = !isWeb;
@@ -7,6 +7,16 @@ export const isAndroid = Platform.OS === 'android';
 export const isDev = process.env.NODE_ENV !== 'production';
 export const isDesktop = isWeb && typeof matchMedia !== 'undefined' && matchMedia('(min-width: 768px)').matches;
 
+export const token = async () => {
+  
+  if(!isWeb){  
+    const token = await AsyncStorage.getItem('token');
+    return (token !== null) ? true : false;
+   }else{
+    const token = localStorage.getItem('token');
+    return (token !== null) ? true : false;
+   }
+};
 export const shadow = Platform.select({
   ios: {
     shadowColor: '#CCCCCC',
