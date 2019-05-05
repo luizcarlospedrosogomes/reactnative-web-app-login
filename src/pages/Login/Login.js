@@ -6,6 +6,7 @@ import {
   ScrollView,
   View,
   AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
 import Button from '../../components/Button';
 import { isWeb, isDesktop } from '../../helpers';
@@ -17,6 +18,7 @@ class Login extends Component {
   state = {
     username: '',
     passwd: '',
+    sending: false,
   }
 
   onUsernameChange = (event) => {
@@ -27,6 +29,7 @@ class Login extends Component {
   }
 
   submit = () => {
+    this.setState({sending:true});
     const { username, passwd } = this.state;
     const requestInfo = {
       method:'POST',
@@ -38,7 +41,7 @@ class Login extends Component {
       .then(response =>{
       
       if(response.status === 200 ||  response.status === 201){
-         // this.setState({cod:response.status, status:"enviado"});
+          this.setState({sending:false});
           return response.json();
       }else{
         alert('Ocorreu um erro durante a autencação. Verifique seus dados');
@@ -68,9 +71,10 @@ class Login extends Component {
     return (
       <ScrollView  style={styles.container}>
         <View style={styles.content}>
+        
+          <Text style={styles.titleHeader}>SISTEMA ERP</Text>
           <Text style={styles.title}>Entrar</Text>
-          
-            <TextInput
+              <TextInput
               returnKeyType="go"
               onChangeText={this.onUsernameChange}
               placeholder="Email"
@@ -88,8 +92,26 @@ class Login extends Component {
             onKeyPress={this.handleKeyDown}
             returnKeyType="go"
             onSubmitEditing={this.submit}
+            secureTextEntry={true}
           />
+          {this.state.sending ? <ActivityIndicator color="#1DA1F2" style={styles.rightPadding} /> :<Text></Text>}
+          
           <Button onClick={this.submit} style={styles.button}>Entrar</Button>
+
+          <Text
+            accessibilityRole="link"
+            href="#"
+            style={styles.link}
+            target="_blank"
+          >Criar conta
+          </Text>
+          <Text
+            accessibilityRole="link"
+            href="#"
+            style={styles.link}
+            target="_blank"
+          >Esqueci minha senha
+          </Text>
         </View>
       </ScrollView>
     );
@@ -120,6 +142,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 32,
   },
+  titleHeader:{
+    fontWeight: 'bold',
+    fontSize: 42,
+    paddingBottom:30,
+  },
   label: {
     color: '#000',
     margin: 10,
@@ -137,6 +164,9 @@ const styles = StyleSheet.create({
   button:{
     width: '100%', 
     fontSize: 32,
+  },
+  link:{
+    color:'blue'
   }
 });
 

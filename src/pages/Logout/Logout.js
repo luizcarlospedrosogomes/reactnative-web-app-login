@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import {AsyncStorage,} from 'react-native';
 import { isWeb } from '../../helpers';
 

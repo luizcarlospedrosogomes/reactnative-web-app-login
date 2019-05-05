@@ -59,7 +59,13 @@ class App extends Component {
             <Route path="/sair" component={Logout} />
             <Redirect to="/" />
           </Switch>
-          :<Login/>
+          :
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/" component={Login} />
+            <Route path="/admin" component={Home} />
+          </Switch>
+          
         }
           {this.state.logged ? <Menu /> : <Text></Text>}
           

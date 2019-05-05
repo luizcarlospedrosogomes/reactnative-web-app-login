@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { shadow } from '../../helpers';
 
-class Button extends Component {
+class ButtonLG extends Component {
   render() {
     const { onClick, children } = this.props;
 
@@ -26,16 +26,21 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 3,
     padding: 20,
+    width:'46%',
     marginVertical: 10,
     marginTop: 10,
+    
     backgroundColor: '#1B95E0',
     ...shadow,
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 22,
+    
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 });
 
-export default Button;
+export default ButtonLG;
