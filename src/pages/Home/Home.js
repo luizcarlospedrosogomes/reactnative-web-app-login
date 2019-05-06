@@ -9,12 +9,21 @@ import {
 } from 'react-native';
 import Button from '../../components/Button';
 import logo from '../../logo.png';
+import { token} from '../../helpers';
 
 class Home extends Component {
   state = {
     spinValue: new Animated.Value(0),
   }
+  componentWillMount() {
+    token()
+    .then(res => { 
+      if(!res){
+        this.props.history.push('/login');
+      }      
+    }).catch(err => alert("Erro"));
 
+  }
   onClick = () => {
     const wasRotated = this.state.spinValue._value === 1;
     Animated.timing(

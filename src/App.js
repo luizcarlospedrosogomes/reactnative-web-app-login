@@ -42,7 +42,14 @@ class App extends Component {
 
   componentWillMount() {
     token()
-    .then(res => { this.setState({ logged: res})      
+    .then(res => { console.log(res), this.setState({ logged: res})      
+    }).catch(err => alert("Erro"));
+
+  }
+
+  componentDidMount(){
+    token()
+    .then(res => { console.log(res), this.setState({ logged: res})      
     }).catch(err => alert("Erro"));
 
   }
@@ -51,22 +58,13 @@ class App extends Component {
     return (
       <Router>
         <View style={styles.container}>
-        {this.state.logged ?
-          <Switch>
+        <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
             <Route path="/admin" component={Home} />
             <Route path="/sair" component={Logout} />
-            <Redirect to="/" />
-          </Switch>
-          :
-          <Switch>
             <Route path="/login" component={Login} />
-            <Route path="/" component={Login} />
-            <Route path="/admin" component={Home} />
-          </Switch>
-          
-        }
+            <Route exact path="/" component={Login} />
+        </Switch>
           {this.state.logged ? <Menu /> : <Text></Text>}
           
         </View>

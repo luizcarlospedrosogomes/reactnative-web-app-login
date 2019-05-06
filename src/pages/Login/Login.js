@@ -52,8 +52,9 @@ class Login extends Component {
             localStorage.setItem('token',dados.token);
           }else{
            AsyncStorage.setItem('token', dados.token)
+           
           }
-            this.props.history.push('/admin');
+          this.props.history.push('/admin');
       }
   })
 
@@ -73,7 +74,7 @@ class Login extends Component {
         <View style={styles.content}>
         
           <Text style={styles.titleHeader}>SISTEMA ERP</Text>
-          <Text style={styles.title}>Entrar</Text>
+          <Text style={styles.title}>Area restrita</Text>
               <TextInput
               returnKeyType="go"
               onChangeText={this.onUsernameChange}

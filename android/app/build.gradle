@@ -98,7 +98,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.login.lcpg"
+        applicationId "com.login"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 2
